@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biografía — Técnico en Sistemas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0e1a;
+      --card: #111827;
+      --card2: #151e2e;
+      --accent: #00d4ff;
+      --accent2: #7c3aed;
+      --gold: #f59e0b;
+      --green: #10b981;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --border: rgba(255,255,255,0.07);
+      --glow: 0 0 40px rgba(0,212,255,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(0,212,255,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(124,58,237,0.08) 0%, transparent 60%);
+      pointer-events: none; z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none; z-index: 0;
+    }
+
+    .wrapper {
+      position: relative; z-index: 1;
+      max-width: 960px; margin: 0 auto;
+      padding: 60px 24px 100px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px; align-items: center;
+      margin-bottom: 48px;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .hero-text .label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 100px; padding: 5px 14px; margin-bottom: 20px;
+    }
+
+    .hero-text .label span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; display: inline-block; }
+
+    .hero-text h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      font-weight: 800; line-height: 1.05; color: #fff; margin-bottom: 16px;
+    }
+
+    .hero-text h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .hero-text .subtitle {
+      font-size: 1.05rem; font-weight: 300; color: var(--muted);
+      line-height: 1.7; max-width: 440px;
+    }
+
+    .hero-text .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+
+    .tag {
+      font-size: 12px; font-weight: 500; padding: 5px 12px;
+      border-radius: 6px; border: 1px solid var(--border);
+      background: var(--card); color: var(--text); letter-spacing: 0.03em;
+    }
+
+    /* ── Avatar ── */
+    .avatar-wrap { position: relative; flex-shrink: 0; }
+
+    .avatar-ring {
+      width: 170px; height: 170px; border-radius: 28px; padding: 3px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 50px rgba(0,212,255,0.2);
+    }
+
+    .avatar-inner {
+      width: 100%; height: 100%; border-radius: 25px;
+      background: var(--card2); overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .avatar-inner img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .avatar-badge {
+      position: absolute; bottom: -12px; right: -12px;
+      background: var(--gold); color: #000;
+      font-family: 'Syne', sans-serif; font-size: 11px; font-weight: 700;
+      padding: 5px 10px; border-radius: 8px; letter-spacing: 0.05em; white-space: nowrap;
+    }
+
+    /* ── STATS ── */
+    .stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin-bottom: 48px;
+      animation: fadeUp 0.7s 0.15s ease both;
+    }
+
+    .stat-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 24px 20px; text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .stat-card:hover { border-color: rgba(0,212,255,0.25); transform: translateY(-3px); }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800;
+      color: var(--accent); display: block;
+    }
+
+    .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; letter-spacing: 0.04em; }
+
+    /* ── ACCORDION ── */
+    .accordion {
+      display: flex; flex-direction: column; gap: 12px;
+      animation: fadeUp 0.7s 0.25s ease both;
+    }
+
+    .acc-item {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      overflow: hidden; transition: border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .acc-item.open { border-color: rgba(0,212,255,0.25); box-shadow: var(--glow); }
+
+    .acc-trigger {
+      width: 100%; background: none; border: none; cursor: pointer;
+      padding: 20px 24px; display: flex; align-items: center; gap: 14px;
+      text-align: left; color: var(--text); transition: background 0.2s;
+    }
+
+    .acc-trigger:hover { background: rgba(255,255,255,0.03); }
+
+    .acc-icon {
+      width: 40px; height: 40px; border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 19px; flex-shrink: 0;
+    }
+
+    .acc-title {
+      font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em; color: #fff; flex: 1;
+    }
+
+    .acc-arrow {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.35s cubic-bezier(.4,0,.2,1), background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .acc-item.open .acc-arrow { transform: rotate(180deg); background: rgba(0,212,255,0.12); }
+    .acc-arrow svg { stroke: var(--muted); transition: stroke 0.2s; }
+    .acc-item.open .acc-arrow svg { stroke: var(--accent); }
+
+    .acc-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.38s cubic-bezier(.4,0,.2,1); }
+    .acc-item.open .acc-body { grid-template-rows: 1fr; }
+    .acc-inner { overflow: hidden; padding: 0 24px; }
+    .acc-item.open .acc-inner { padding-bottom: 24px; }
+    .acc-divider { height: 1px; background: var(--border); margin-bottom: 20px; }
+
+    /* Content */
+    .prose { font-size: 0.95rem; line-height: 1.8; color: #94a3b8; font-weight: 300; }
+
+    .services-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 600; margin-bottom: 10px; }
+
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-bottom: 20px; }
+
+    .service-item {
+      background: var(--card2); border: 1px solid var(--border); border-radius: 12px;
+      padding: 14px 16px; display: flex; align-items: flex-start; gap: 12px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .service-item:hover { border-color: rgba(0,212,255,0.25); transform: translateY(-2px); }
+    .service-item.remote { border-color: rgba(0,212,255,0.15); }
+    .service-item.remote:hover { border-color: rgba(0,212,255,0.4); }
+
+    .service-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+    .service-text strong { display: block; font-size: 0.85rem; font-weight: 500; color: #fff; margin-bottom: 2px; }
+    .service-text span { font-size: 0.75rem; color: var(--muted); }
+
+    .skills-list { display: flex; flex-direction: column; gap: 16px; }
+    .skill-row { display: flex; align-items: center; gap: 14px; }
+    .skill-name { font-size: 0.85rem; color: var(--text); width: 170px; flex-shrink: 0; }
+    .skill-bar { flex: 1; height: 6px; background: rgba(255,255,255,0.07); border-radius: 99px; overflow: hidden; }
+    .skill-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--accent), var(--accent2)); width: 0; transition: width 0.9s cubic-bezier(.4,0,.2,1); }
+    .skill-pct { font-size: 0.78rem; color: var(--muted); width: 34px; text-align: right; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+    .chip {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--card2); border: 1px solid var(--border); border-radius: 12px;
+      padding: 10px 16px; font-size: 0.88rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .chip:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-2px); }
+
+    .goal-card {
+      background: linear-gradient(135deg, rgba(0,212,255,0.05), rgba(124,58,237,0.05));
+      border: 1px solid rgba(0,212,255,0.15); border-radius: 14px;
+      padding: 22px 26px; position: relative; overflow: hidden;
+    }
+    .goal-card::before {
+      content: '"'; position: absolute; top: -10px; right: 16px;
+      font-family: 'Syne', sans-serif; font-size: 7rem; font-weight: 800;
+      color: rgba(0,212,255,0.05); line-height: 1;
+    }
+    .goal-card p { font-size: 0.95rem; line-height: 1.8; color: #94a3b8; font-weight: 300; position: relative; }
+
+    /* ── CONTACTO ── */
+    .contact-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 14px; margin-bottom: 20px;
+    }
+
+    .contact-card {
+      background: var(--card2); border: 1px solid var(--border); border-radius: 14px;
+      padding: 20px; display: flex; flex-direction: column; gap: 6px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .contact-card:hover { border-color: rgba(0,212,255,0.25); transform: translateY(-2px); }
+
+    .cc-icon { font-size: 22px; margin-bottom: 2px; }
+    .cc-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); font-weight: 600; }
+    .cc-value { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; color: #fff; word-break: break-all; }
+    .cc-hint { font-size: 0.75rem; color: var(--muted); }
+
+    .contact-cta {
+      background: linear-gradient(135deg, rgba(0,212,255,0.06), rgba(124,58,237,0.06));
+      border: 1px solid rgba(0,212,255,0.16); border-radius: 16px;
+      padding: 26px; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+    }
+
+    .contact-cta p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; max-width: 400px; }
+
+    .btn-mail {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, var(--accent), #0099cc);
+      color: #000; font-family: 'Syne', sans-serif;
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.05em;
+      padding: 12px 26px; border-radius: 12px; text-decoration: none;
+      transition: transform 0.18s, box-shadow 0.18s;
+      box-shadow: 0 4px 20px rgba(0,212,255,0.22);
+    }
+    .btn-mail:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,212,255,0.35); }
+
+    .avail { display: flex; align-items: center; gap: 7px; font-size: 0.78rem; color: var(--green); }
+    .avail-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+
+    /* ── REDES SOCIALES ── */
+    .social-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 12px; margin-top: 20px;
+    }
+
+    .social-card {
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      background: var(--card2); border: 1px solid var(--border); border-radius: 14px;
+      padding: 18px 12px; text-decoration: none; color: var(--text);
+      transition: border-color 0.22s, transform 0.22s, box-shadow 0.22s;
+    }
+
+    .social-card:hover { transform: translateY(-3px); box-shadow: var(--glow); }
+    .social-card.discord:hover { border-color: rgba(88,101,242,0.5); box-shadow: 0 0 30px rgba(88,101,242,0.15); }
+    .social-card.instagram:hover { border-color: rgba(228,64,95,0.5); box-shadow: 0 0 30px rgba(228,64,95,0.15); }
+    .social-card.tiktok:hover { border-color: rgba(255,255,255,0.25); box-shadow: 0 0 30px rgba(255,255,255,0.08); }
+
+    .social-logo {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .social-logo svg { width: 24px; height: 24px; }
+
+    .social-name {
+      font-family: 'Syne', sans-serif; font-size: 0.82rem;
+      font-weight: 700; color: #fff;
+    }
+
+    .social-handle { font-size: 0.72rem; color: var(--muted); }
+
+    /* ── FOOTER ── */
+    footer { margin-top: 64px; text-align: center; border-top: 1px solid var(--border); padding-top: 28px; }
+    footer p { font-size: 13px; color: var(--muted); }
+    footer strong { color: var(--accent); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    @media (max-width: 640px) {
+      .hero { grid-template-columns: 1fr; }
+      .avatar-wrap { order: -1; display: flex; justify-content: center; }
+      .stats { grid-template-columns: repeat(3, 1fr); }
+      .services-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .skill-name { width: 120px; }
+      .acc-trigger { padding: 16px 18px; }
+      .acc-inner { padding: 0 18px; }
+      .acc-item.open .acc-inner { padding-bottom: 18px; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-text">
+      <div class="label"><span></span> Disponible para servicios técnicos</div>
+      <h1>Estudiante de<br><em>Sistemas</em></h1>
+      <p class="subtitle">
+        Técnico en computadores, apasionado por la tecnología y la ciberseguridad.
+        Colombiano, siempre listo para solucionar tu problema informático.
+      </p>
+      <div class="tags">
+        <span class="tag">🇨🇴 Colombia</span>
+        <span class="tag">Sistemas</span>
+        <span class="tag">Ciberseguridad</span>
+        <span class="tag">Soporte Técnico</span>
+        <span class="tag">🌐 Servicio Remoto</span>
+      </div>
+    </div>
+    <div class="avatar-wrap">
+      <div class="avatar-ring">
+        <div class="avatar-inner">
+          <img src="https://i.postimg.cc/tTKB7JYn/1000141802.jpg" alt="Mi foto" />
+        </div>
+      </div>
+      <div class="avatar-badge">⚡ Técnico</div>
+    </div>
+  </header>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-card">
+      <span class="stat-num">19</span>
+      <div class="stat-label">Años de edad</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num">7+</span>
+      <div class="stat-label">Servicios ofrecidos</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-num">100%</span>
+      <div class="stat-label">Compromiso</div>
+    </div>
+  </div>
+
+  <!-- ACCORDION -->
+  <div class="accordion">
+
+    <!-- Sobre mí -->
+    <div class="acc-item open" data-acc>
+      <button class="acc-trigger" aria-expanded="true">
+        <div class="acc-icon" style="background:rgba(0,212,255,0.1);">👤</div>
+        <span class="acc-title">Sobre mí</span>
+        <div class="acc-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </button>
+      <div class="acc-body"><div class="acc-inner">
+        <div class="acc-divider"></div>
+        <p class="prose">Soy un joven colombiano apasionado por el mundo de la tecnología e informática. Actualmente estudio Sistemas con el objetivo de convertirme en un profesional del sector tech. Me caracterizo por ser autodidacta, curioso y siempre dispuesto a aprender nuevas habilidades. Me especializo en el soporte técnico de computadores, ofreciendo soluciones rápidas y efectivas a usuarios que necesitan mantener sus equipos en óptimas condiciones.</p>
+      </div></div>
+    </div>
+
+    <!-- Servicios -->
+    <div class="acc-item" data-acc>
+      <button class="acc-trigger" aria-expanded="false">
+        <div class="acc-icon" style="background:rgba(124,58,237,0.12);">🛠️</div>
+        <span class="acc-title">Servicios Técnicos</span>
+        <div class="acc-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </button>
+      <div class="acc-body"><div class="acc-inner">
+        <div class="acc-divider"></div>
+        <p class="services-label" style="color:var(--muted);">🏠 Presencial</p>
+        <div class="services-grid">
+          <div class="service-item">
+            <span class="service-icon">💻</span>
+            <div class="service-text"><strong>Formateo de Computadores</strong><span>Instalación limpia de Windows y drivers</span></div>
+          </div>
+          <div class="service-item">
+            <span class="service-icon">🧹</span>
+            <div class="service-text"><strong>Limpieza y Mantenimiento</strong><span>Preventivo y correctivo de hardware</span></div>
+          </div>
+          <div class="service-item">
+            <span class="service-icon">🔧</span>
+            <div class="service-text"><strong>Diagnóstico de Software</strong><span>Solución de errores y fallas del sistema</span></div>
+          </div>
+          <div class="service-item">
+            <span class="service-icon">🔒</span>
+            <div class="service-text"><strong>Ciberseguridad Básica</strong><span>Protección y buenas prácticas digitales</span></div>
+          </div>
+        </div>
+        <p class="services-label" style="color:var(--accent); margin-top:6px;">🌐 Remoto — Desde cualquier lugar</p>
+        <div class="services-grid">
+          <div class="service-item remote">
+            <span class="service-icon">🪟</span>
+            <div class="service-text"><strong>Activación de Windows</strong><span>Configuración y activación remota del SO</span></div>
+          </div>
+          <div class="service-item remote">
+            <span class="service-icon">📄</span>
+            <div class="service-text"><strong>Microsoft Office</strong><span>Instalación y activación remota completa</span></div>
+          </div>
+          <div class="service-item remote">
+            <span class="service-icon">🗑️</span>
+            <div class="service-text"><strong>Limpieza de Archivos Basura</strong><span>Optimización y liberación de espacio en disco</span></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Habilidades -->
+    <div class="acc-item" data-acc>
+      <button class="acc-trigger" aria-expanded="false">
+        <div class="acc-icon" style="background:rgba(245,158,11,0.1);">📊</div>
+        <span class="acc-title">Habilidades</span>
+        <div class="acc-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </button>
+      <div class="acc-body"><div class="acc-inner">
+        <div class="acc-divider"></div>
+        <div class="skills-list">
+          <div class="skill-row"><span class="skill-name">Soporte Técnico</span><div class="skill-bar"><div class="skill-fill" data-width="90%"></div></div><span class="skill-pct">90%</span></div>
+          <div class="skill-row"><span class="skill-name">Windows / SO</span><div class="skill-bar"><div class="skill-fill" data-width="85%"></div></div><span class="skill-pct">85%</span></div>
+          <div class="skill-row"><span class="skill-name">Microsoft Office</span><div class="skill-bar"><div class="skill-fill" data-width="80%"></div></div><span class="skill-pct">80%</span></div>
+          <div class="skill-row"><span class="skill-name">Hardware / PC</span><div class="skill-bar"><div class="skill-fill" data-width="78%"></div></div><span class="skill-pct">78%</span></div>
+          <div class="skill-row"><span class="skill-name">Ciberseguridad</span><div class="skill-bar"><div class="skill-fill" data-width="20%"></div></div><span class="skill-pct">20%</span></div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Intereses -->
+    <div class="acc-item" data-acc>
+      <button class="acc-trigger" aria-expanded="false">
+        <div class="acc-icon" style="background:rgba(0,212,255,0.1);">🎯</div>
+        <span class="acc-title">Intereses Personales</span>
+        <div class="acc-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </button>
+      <div class="acc-body"><div class="acc-inner">
+        <div class="acc-divider"></div>
+        <div class="chips">
+          <div class="chip">🎮 GTA &amp; Videojuegos</div>
+          <div class="chip">🎵 Música Ranchera</div>
+          <div class="chip">🔐 Ciberseguridad</div>
+          <div class="chip">💻 Tecnología</div>
+          <div class="chip">🇨🇴 Cultura Colombiana</div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Objetivo -->
+    <div class="acc-item" data-acc>
+      <button class="acc-trigger" aria-expanded="false">
+        <div class="acc-icon" style="background:rgba(124,58,237,0.12);">🚀</div>
+        <span class="acc-title">Objetivo Profesional</span>
+        <div class="acc-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </button>
+      <div class="acc-body"><div class="acc-inner">
+        <div class="acc-divider"></div>
+        <div class="goal-card">
+          <p>Mi meta es crecer como profesional en sistemas e informática, profundizando mis conocimientos en ciberseguridad y desarrollo de software. A corto plazo, busco consolidar mi experiencia técnica brindando servicios de calidad a usuarios y empresas, mientras avanzo en mi formación académica. Quiero demostrar que desde Colombia se puede construir una carrera sólida en el mundo digital.</p>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- Contacto -->
+    <div class="acc-item" data-acc>
+      <button class="acc-trigger" aria-expanded="false">
+        <div class="acc-icon" style="background:rgba(16,185,129,0.1);">📬</div>
+        <span class="acc-title">Contacto</span>
+        <div class="acc-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </button>
+      <div class="acc-body"><div class="acc-inner">
+        <div class="acc-divider"></div>
+        <div class="contact-grid">
+          <div class="contact-card">
+            <div class="cc-icon">📧</div>
+            <div class="cc-label">Correo electrónico</div>
+            <div class="cc-value" id="email-display" style="color:var(--accent);cursor:pointer;" onclick="window.open('https://mail.google.com/mail/?view=cm&to=Jhonfreed122@gmail.com','_blank')"></div>
+            <div class="cc-hint">Respondo en menos de 24h</div>
+          </div>
+          <div class="contact-card">
+            <div class="cc-icon">🌐</div>
+            <div class="cc-label">Modalidad</div>
+            <div class="cc-value">Presencial y Remoto</div>
+            <div class="cc-hint">Colombia · Atención flexible</div>
+          </div>
+          <div class="contact-card">
+            <div class="cc-icon">⚡</div>
+            <div class="cc-label">Disponibilidad</div>
+            <div class="cc-value">Lunes – Sábado</div>
+            <div class="cc-hint">8:00 am – 8:00 pm</div>
+          </div>
+          <div class="contact-card">
+            <div class="cc-icon">🇨🇴</div>
+            <div class="cc-label">Ubicación</div>
+            <div class="cc-value">Colombia</div>
+            <div class="cc-hint">Servicio remoto a todo el país</div>
+          </div>
+        </div>
+        <div class="contact-cta">
+          <div id="avail-status"></div>
+          <p>¿Tu computador tiene algún problema? Escríbeme y lo solucionamos juntos. Atención rápida y confiable.</p>
+        </div>
+
+        <!-- Redes Sociales -->
+        <div style="margin-top:20px;">
+          <p class="services-label" style="color:var(--muted); margin-bottom:12px;">📱 Redes Sociales</p>
+          <div class="social-grid">
+
+            <!-- Discord -->
+            <a href="https://discord.gg/A849UUUC" target="_blank" class="social-card discord">
+              <div class="social-logo" style="background:rgba(88,101,242,0.12);">
+                <svg viewBox="0 0 24 24" fill="#5865F2" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.002.022.015.043.03.056a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                </svg>
+              </div>
+              <span class="social-name">Discord</span>
+              <span class="social-handle">@lopera_xx5</span>
+            </a>
+
+            <!-- Instagram -->
+            <a href="http://instagram.com/jhon_xx6" target="_blank" class="social-card instagram">
+              <div class="social-logo" style="background:rgba(228,64,95,0.1);">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+                      <stop offset="0%" style="stop-color:#f09433"/>
+                      <stop offset="25%" style="stop-color:#e6683c"/>
+                      <stop offset="50%" style="stop-color:#dc2743"/>
+                      <stop offset="75%" style="stop-color:#cc2366"/>
+                      <stop offset="100%" style="stop-color:#bc1888"/>
+                    </linearGradient>
+                  </defs>
+                  <path fill="url(#ig-grad)" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+                </svg>
+              </div>
+              <span class="social-name">Instagram</span>
+              <span class="social-handle">@jhon_xx6</span>
+            </a>
+
+            <!-- TikTok -->
+            <a href="https://www.tiktok.com/@jhon_xx5" target="_blank" class="social-card tiktok">
+              <div class="social-logo" style="background:rgba(255,255,255,0.06);">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="#ffffff" d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/>
+                </svg>
+              </div>
+              <span class="social-name">TikTok</span>
+              <span class="social-handle">@jhon_xx5</span>
+            </a>
+
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Hecho con 💙 desde <strong>Colombia</strong> · Técnico en Sistemas</p>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('[data-acc]').forEach(item => {
+    item.querySelector('.acc-trigger').addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('[data-acc]').forEach(o => o.classList.remove('open'));
+      if (!isOpen) {
+        item.classList.add('open');
+        item.querySelectorAll('.skill-fill[data-width]').forEach(b => {
+          setTimeout(() => { b.style.width = b.dataset.width; }, 60);
+        });
+      }
+    });
+  });
+
+  function updateAvailability() {
+    const colombiaHour = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Bogota' })).getHours();
+    const el = document.getElementById('avail-status');
+    if (!el) return;
+    if (colombiaHour >= 8 && colombiaHour < 20) {
+      el.innerHTML = `<span class="avail"><span class="avail-dot"></span> Disponible ahora</span>`;
+    } else {
+      el.innerHTML = `<span class="avail" style="color:#f59e0b;"><span class="avail-dot" style="background:#f59e0b;animation:pulse 2s infinite;"></span> No disponible · Horario: 8am – 8pm</span>`;
+    }
+  }
+
+  updateAvailability();
+  setInterval(updateAvailability, 60000);
+
+  // Mostrar correo dinámicamente para evitar bloqueos
+  const u = 'Jhonfreed122';
+  const d = 'gmail.com';
+  const el = document.getElementById('email-display');
+  if (el) el.textContent = u + '@' + d;
+</script>
+</body>
+</html>
